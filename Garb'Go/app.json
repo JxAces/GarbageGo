@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "login-register-ui",
-    "slug": "login-register-ui",
+    "name": "garbgo",
+    "slug": "garbgo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -44,7 +44,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "36e2864c-604d-4acb-808c-aca79d105673"
+        "projectId": "bc66fa1f-300d-42df-b2d5-310d3bae32b2"
       }
     }
   }
