@@ -1,0 +1,62 @@
+const Location = require("../models/location");
+
+exports.getLocation = async (req, res) => {
+  try {
+    const location = await Location.findById(req.params.id);
+    res.status(200).json(location);
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+exports.getAllLocations = async (req, res) => {
+  try {
+    const locations = await Location.find();
+    res.status(200).json(locations);
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+
+exports.createLocation = async (req, res) => {
+    try {
+      const newLocation = new   (req.body);
+      const savedLocation = await newLocation.save();
+      res.status(201).json(savedLocation);
+    } catch (error) {
+      res.status(500).json({ error: "Server error" });
+    }
+  };
+
+  exports.updateLocation = async (req, res) => {
+    try {
+      const { name, alertStatus } = req.body;
+      
+      // Determine the status based on alertStatus
+      const status = alertStatus === "Full" ? "Active" : "Inactive";
+  
+      const updatedLocation = await Location.findOneAndUpdate(
+        { name }, // Find by name
+        { ...req.body, status }, // Update with new data and status
+        { new: true }
+      );
+  
+      if (!updatedLocation) {
+        return res.status(404).json({ error: "Location not found" });
+      }
+  
+      res.status(200).json(updatedLocation);
+    } catch (error) {
+      res.status(500).json({ error: "Server error" });
+    }
+  };
+
+exports.deleteLocation = async (req, res) => { // Update function name to deleteLocation
+  try {
+    await Location.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Location deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};
